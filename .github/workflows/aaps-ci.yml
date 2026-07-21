@@ -191,6 +191,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Restore AAPS keystore from secret
+        env:
+          KEY_BASE64: ${{ secrets.AAPS_KEY_BASE64 }}
+        run: |
+          echo "$KEY_BASE64" | base64 -d > keystore/AAPS.jks
+
       - name: Fetch selected tag from upstream
         run: |
           git remote add upstream https://github.com/nightscout/AndroidAPS.git || true
